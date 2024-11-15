@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#SBATCH --job-name=quantum_train
+#SBATCH --output=job.%j.out
+#SBATCH --cpus-per-task=16
+#SBATCH --time=48:00:00
+#SBATCH --partition=cores_any
+#SBATCH --mail-type=END
+
+module load PyTorch/2.1.2-foss-2023a-CUDA-12.1.1
+module load Anaconda3
+
+#conda create -n quantum_conda_env
+source activate quantum_conda_env
+
+pip install -r requirements.txt
+
+export PYTHONPATH=.
+export LC_CTYPE=en_US.UTF-8
+export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64
+
+python3 train.py
+
+conda deactivate
