@@ -56,7 +56,7 @@ envs = int(os.environ.get('SLURM_CPUS_PER_TASK', "8"))
 cardinality = int(os.environ.get('MATRIX_CARDINALITY', "4"))
 env_name = "quantum_env_xor-v0"
 
-run_name = f"{env_name}-{cardinality}x{cardinality}-{envs}-{timestamp}-{execution_id}"
+run_name = f"{env_name}-action_mask-{cardinality}x{cardinality}-{envs}-{timestamp}-{execution_id}"
 
 if __name__ == '__main__':
     eval_env = make_vec_env(env_name, n_envs=envs, vec_env_cls=SubprocVecEnv,
@@ -67,13 +67,13 @@ if __name__ == '__main__':
     reward_stop = StopTrainingOnRewardThreshold(reward_threshold=0.9, verbose=1)
     stagnation_stop = StopTrainingOnNoModelImprovement(max_no_improvement_evals=100, min_evals=100, verbose=1)
 
-    eval_callback = EvalCallback(eval_env, eval_freq=10000, callback_after_eval=stagnation_stop,
-                                 callback_on_new_best=reward_stop,
-                                 n_eval_episodes=100, best_model_save_path=f"./models/{run_name}/",
-                                 verbose=1)
+    eval_callback = MaskableEvalCallback(eval_env, eval_freq=10000, callback_after_eval=stagnation_stop,
+                                         callback_on_new_best=reward_stop,
+                                         n_eval_episodes=100, best_model_save_path=f"./models/{run_name}/",
+                                         verbose=1)
 
     mlflow.set_experiment("quantum_rl")
     with mlflow.start_run(run_name=run_name):
-        model = PPO(policy=MlpPolicy, env=train_env, verbose=0)
+        model = MaskablePPO(policy=MaskableActorCriticPolicy, env=train_env, verbose=0)
         model.set_logger(loggers)
         model.learn(total_timesteps=100000000, log_interval=1, callback=eval_callback)

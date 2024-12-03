@@ -29,7 +29,7 @@ class QuantumCircuit(gym.Env):
         self.reset()
 
     def action_masks(self) -> List[bool]:
-        return [not (self.correct_lines[v[0]] or self.correct_lines[v[1]]) for v in self.valid_actions]
+        return [not self.correct_lines[v[0]] for v in self.valid_actions]
 
     def apply_operator(self, indices):
         self.state[0, indices[0]] = np.logical_xor(self.state[0, indices[0]], self.state[0, indices[1]])
