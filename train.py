@@ -64,7 +64,7 @@ if __name__ == '__main__':
     train_env = make_vec_env(env_name, n_envs=envs, vec_env_cls=SubprocVecEnv,
                              env_kwargs={"cardinality": cardinality})
 
-    reward_stop = StopTrainingOnRewardThreshold(reward_threshold=0.9, verbose=1)
+    reward_stop = StopTrainingOnRewardThreshold(reward_threshold=0.85, verbose=1)
     stagnation_stop = StopTrainingOnNoModelImprovement(max_no_improvement_evals=100, min_evals=100, verbose=1)
 
     eval_callback = MaskableEvalCallback(eval_env, eval_freq=10000, callback_after_eval=stagnation_stop,
