@@ -1,7 +1,0 @@
-artifact_location: file:///home/pabu/src/quantum/mlruns/768738987674365968
-creation_time: 1716190033233
-experiment_id: '768738987674365968'
-last_update_time: 1716191412571
-lifecycle_stage: deleted
-name: quantum_xor
-tags: {}

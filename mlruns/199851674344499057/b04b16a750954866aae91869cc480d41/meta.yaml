@@ -1,0 +1,16 @@
+artifact_uri: file:///home/pabu/src/quantum/mlruns/199851674344499057/b04b16a750954866aae91869cc480d41/artifacts
+deleted_time: 1733223065649
+end_time: 1733222552036
+entry_point_name: ''
+experiment_id: '199851674344499057'
+lifecycle_stage: deleted
+run_id: b04b16a750954866aae91869cc480d41
+run_name: quantum_env_xor-v0-6x6-8-20241203113817-local
+run_uuid: b04b16a750954866aae91869cc480d41
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733222302319
+status: 4
+tags: []
+user_id: pabu
